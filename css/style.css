@@ -1,18 +1,799 @@
-/* Error: Expected expression.
- *    ,
- * 46 |   box-shadow: ;
- *    |               ^
- *    '
- *   sass\pages\_home.scss 46:15  @import
- *   sass\main.scss 18:9          root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Expected expression.\a    \2577 \a 46 \2502    box-shadow: ;\d\a    \2502                ^\a    \2575 \a   sass\\pages\\_home.scss 46:15  @import\a   sass\\main.scss 18:9          root stylesheet";
+@charset "UTF-8";
+/*
+  品牌色
+  COLORS:
+  Light green: #7ed56f
+  Medium green: #55c57a
+  Dark green: #28b485
+*/
+/* basic reset */
+/*
+    重置样式是为了让样式在不同浏览器都保持一致
+    但是如今的浏览器兼容性越来越好,所以重置已经不是必须的了
+    添加after和before是因为只匹配*的话,after和before不会被覆盖到
+*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /*继承*/
+  box-sizing: inherit;
 }
+
+html {
+  /*设置根元素font-size*/
+  /*设置为10是因为方便换算 1rem=10px -> 16px=1.6rem*/
+  /*font-size: 10px;*/
+  /*写死为10px是不好的(比如用户修改浏览器默认字体大小?放大缩小),我们应该基于浏览器的默认font-size(16px)的百分比*/
+  /*0.625*16=10*/
+  /*老ie不兼容rem*/
+  font-size: 62.5%;
+  /*改变盒子模型,以便不再添加边框和填充到总宽度和总高度*/
+  box-sizing: border-box;
+}
+
+/* basic reset end */
+/* 从左侧移动 */
+/* 为了浏览器优化,最好只对两个属性进行动画 */
+@keyframes moveInLeft {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的-100px*/
+    /*transform: translateX(-100px);*/
+    transform: translateX(-10rem);
+  }
+  80% {
+    /*执行到80%,此时到原元素位置的右侧20px*/
+    /*transform: translateX(10px);*/
+    transform: translateX(1rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}
+/* 从右侧移动 */
+@keyframes moveInRight {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的100px*/
+    /*transform: translateX(100px);*/
+    transform: translateX(10rem);
+  }
+  80% {
+    /*执行到80%,此时到原元素位置的左侧20px*/
+    /*transform: translateX(-10px);*/
+    transform: translateX(-1rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}
+/* 从底部移动 */
+@keyframes moveInBottom {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的100px*/
+    /*transform: translateY(30px);*/
+    transform: translateY(3rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}
+/*
+    字体相关的写在body,why
+    因为字体的属性通常是遗传/继承的,所以加在body来使之遗传,
+    比通用选择器里给每个元素(父子都有)添加来得高效
+*/
+body {
+  /*
+      sans-serif是无衬线字体
+      lato是谷歌的字体
+  */
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /*font-size: 16px;*/
+  font-size: 1.8rem;
+  /* 比预定义行高高1.7倍 */
+  line-height: 1.7;
+  color: #777;
+  /* 四边的留白 */
+  /*padding: 30px;*/
+  padding: 3rem;
+}
+
+.heading-primary {
+  color: #fff;
+  /* 字母转大写 */
+  text-transform: uppercase;
+  /*
+      背部可见性
+      解决动画的震动(原理不明)
+  */
+  backface-visibility: hidden;
+  /*margin-bottom: 60px;*/
+  margin-bottom: 6rem;
+}
+.heading-primary--main {
+  /*块元素会占一整行,可以把另一个span挤下去*/
+  display: block;
+  /*font-size: 60px;*/
+  font-size: 6rem;
+  font-weight: 400;
+  /*字间距*/
+  /*letter-spacing: 35px;*/
+  letter-spacing: 3.5rem;
+  /*指定要执行的动画的名称*/
+  animation-name: moveInLeft;
+  /*动画执行时间*/
+  animation-duration: 1s;
+  /**
+      动画计时函数
+      ease-in: 越来越快
+      ease-out(缓出): 越来越慢
+      ease-in-out/linear/step-start/step-end
+      支持自定义
+   */
+  animation-timing-function: ease-out;
+  /*动画重复次数*/
+  /*animation-iteration-count: 3;*/
+  /*动画延迟时间(会等待x秒再开始动画)*/
+  /*animation-delay: 3s; */
+}
+.heading-primary--sub {
+  display: block;
+  /*font-size: 20px;*/
+  font-size: 2rem;
+  font-weight: 700;
+  /*letter-spacing: 17.4px;*/
+  letter-spacing: 1.75rem;
+  animation: moveInRight 1s ease-out;
+}
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(to right, #55c57a, #28b485);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 0.2rem;
+  transition: all 0.2s;
+}
+.heading-secondary:hover {
+  transform: skewY(2deg) skewX(15deg) scale(1.1);
+  text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.heading-teritiary {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: 1.8rem;
+}
+.paragraph:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.u-center-text {
+  text-align: center !important;
+}
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important;
+}
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 2rem !important;
+}
+
+.u-margin-top-big {
+  margin-top: 8rem !important;
+}
+
+.u-margin-top-huge {
+  margin-top: 10rem !important;
+}
+
+.card {
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  height: 52rem;
+}
+.card__side {
+  height: 52rem;
+  font-size: 2rem;
+  transition: all 0.8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.8rem;
+}
+.card__side--front {
+  background-color: #fff;
+}
+.card__side--back {
+  transform: rotateY(180deg);
+}
+.card__side--back-1 {
+  background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+}
+.card__side--back-2 {
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+}
+.card__side--back-3 {
+  background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+}
+.card:hover .card__side--front {
+  transform: rotateY(-180deg);
+}
+.card:hover .card__side--back {
+  transform: rotateY(0);
+}
+.card__picture {
+  background-size: cover;
+  height: 23rem;
+  background-blend-mode: screen;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.card__picture--1 {
+  background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(../img/nat-5.jpg);
+}
+.card__picture--2 {
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(../img/nat-6.jpg);
+}
+.card__picture--3 {
+  background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(../img/nat-7.jpg);
+}
+.card__heading {
+  font-size: 2.8rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: right;
+  color: #fff;
+  position: absolute;
+  top: 12rem;
+  right: 2rem;
+  width: 75%;
+}
+.card__heading-span {
+  padding: 1rem 1.5rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.card__heading-span--1 {
+  background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85));
+}
+.card__heading-span--2 {
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(40, 180, 133, 0.85));
+}
+.card__heading-span--3 {
+  background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85));
+}
+.card__details {
+  padding: 3rem;
+}
+.card__details ul {
+  list-style: none;
+  width: 80%;
+  margin: 0 auto;
+}
+.card__details ul li {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+.card__details ul li:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+.card__cta {
+  position: absolute;
+  /* 应该封装为mixin */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* 应该封装为mixin */
+  width: 90%;
+  text-align: center;
+}
+.card__price-box {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 8rem;
+}
+.card__price-only {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+.card__price-value {
+  font-size: 6rem;
+  font-weight: 100;
+}
+
+.form__group:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.form__input {
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-bottom: 3px solid transparent;
+  width: 90%;
+  display: block;
+  transition: all 0.3s;
+}
+.form__input::-webkit-input-placeholder {
+  color: #999;
+}
+.form__input:focus:invalid {
+  border-bottom: 3px solid #ff7730;
+}
+.form__input:focus {
+  outline: none;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #55c57a;
+}
+.form__label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-left: 2rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+}
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4rem);
+}
+.form__radio-group {
+  width: 49%;
+  display: inline-block;
+}
+.form__radio-input {
+  display: none;
+}
+.form__radio-label {
+  font-style: 1.8rem;
+  cursor: pointer;
+  position: relative;
+  padding-left: 4.5rem;
+}
+.form__radio-button {
+  height: 3rem;
+  width: 3rem;
+  border: 5px solid #55c57a;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: -0.4rem;
+  display: inline-block;
+}
+.form__radio-button::after {
+  content: "";
+  display: block;
+  height: 1.3rem;
+  width: 1.3rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #55c57a;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+  opacity: 1;
+}
+
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 0.5rem;
+  padding: 6rem;
+  padding-left: 9rem;
+  font-size: 1.8rem;
+  transform: skewX(-12deg);
+}
+.story__shape {
+  width: 15rem;
+  height: 15rem;
+  float: left;
+  -webkit-shape-outside: circle(50% at 50% 50%);
+  shape-outside: circle(50% at 50% 50%);
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+  transform: translateX(-3rem) skewX(12deg);
+  position: relative;
+}
+.story__img {
+  height: 100%;
+  transform: translateX(-4rem) scale(1.4);
+  backface-visibility: hidden;
+  transition: all 0.5s;
+}
+.story:hover .story__img {
+  transform: translateX(-4rem) scale(1);
+  filter: blur(3px) brightness(90%);
+}
+.story__text {
+  transform: skewX(12deg);
+}
+.story__caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.5s;
+  backface-visibility: hidden;
+}
+.story:hover .story__caption {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+  /*可以通过分别设置两个伪类来实现点击前后的不同效果*/
+  /*:link是链接伪类,此时尚未被点击*/
+  /*:visited是已被点击的状态(已被访问的链接)(访问状态)*/
+  /*hover y=3 active(点击) y=-1 则点击时实际是从3到1,实现了按钮按下的效果*/
+  /*被激活(单击或触发事件)时*/
+  /*基本被视为(此处为btn的)子元素*/
+  /*悬停到按钮外时,after会回到按钮后面*/
+  /*有(从底部)进入动画的按钮*/
+}
+.btn, .btn:link, .btn:visited {
+  /*转大写字母*/
+  text-transform: uppercase;
+  /*取消a默认下划线*/
+  text-decoration: none;
+  /*padding可以撑开a元素*/
+  /*padding: 15px 40px;*/
+  padding: 1.5rem 4rem;
+  /*防止挡住其他元素,并且行内元素被视为文字,可以使用文字居中*/
+  display: inline-block;
+  /*border-radius: 100px;*/
+  border-radius: 10rem;
+  /*过渡属性动画,比帧动画简单*/
+  /*该属性作用于该选择器的所有属性*/
+  transition: all 0.2s;
+  position: relative;
+  font-size: 1.8rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  /*向上移动*/
+  /*transform: translateY(-3px);*/
+  transform: translateY(-0.3rem);
+  /*阴影*/
+  /*参数1: x轴阴影位置; 参数2: y轴阴影位置; 参数3: 模糊度; 参数4: 颜色*/
+  /*y轴向下10px的阴影*/
+  /*box-shadow: 0 10px 20px rgba(0, 0, 0, .2);*/
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  /*after被hover时触发*/
+}
+.btn:hover::after {
+  /*scale就是简单地增大元素,磁力增大为原来的2倍*/
+  /*transform: scale(1.5);*/
+  /*scale可以设置不同方向的缩放倍数*/
+  transform: scaleX(1.4) scaleY(1.6);
+  /*透明度过渡到0*/
+  opacity: 0;
+}
+.btn:active, .btn:focus {
+  outline: none;
+  transform: translateY(-0.1rem);
+  /*减少y轴的阴影面积,以及模糊度,给人一种向上按下的视觉效果*/
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+.btn--white {
+  background-color: #fff;
+  color: #777;
+}
+.btn--white::after {
+  /*给.btn-white的after添加背景颜色*/
+  background-color: #fff;
+}
+.btn--green {
+  background-color: #55c57a;
+  color: #fff;
+}
+.btn--green::after {
+  /*给.btn-white的after添加背景颜色*/
+  background-color: #fff;
+}
+.btn::after {
+  /*可以是空,但必须设置,否则不会出现*/
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  /*border-radius: 100px;*/
+  border-radius: 10rem;
+  /*此处定位是基于.btn*/
+  /*子绝父相*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*藏在.btn下方*/
+  z-index: -1;
+  /*初始状态*/
+  transition: all 0.4s;
+}
+.btn--animated {
+  /*动画,延迟0.75秒启动*/
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  /*动画填充模式,解决动画0%时opacity无效的问题*/
+  animation-fill-mode: backwards;
+}
+
+.btn-text:link, .btn-text:visited {
+  font-size: 1.8rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all 0.2s;
+}
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0px);
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.2;
+  overflow: hidden;
+}
+.bg-video__content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+.feature-box__icon {
+  font-size: 6rem;
+  margin-bottom: 0.5rem;
+  /* 应该提取function或mixin start */
+  display: inline-block;
+  background-image: linear-gradient(to right, #55c57a, #28b485);
+  -webkit-background-clip: text;
+  color: transparent;
+  /* 应该提取function或mixin end */
+}
+.feature-box:hover {
+  transform: translateY(-1.5rem);
+}
+
+.composition {
+  position: relative;
+}
+.composition__photo {
+  width: 55%;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  position: absolute;
+  z-index: 10;
+  transition: all 0.2s;
+  outline-offset: 2rem;
+}
+.composition__photo--p1 {
+  left: 0;
+  top: 1rem;
+}
+.composition__photo--p2 {
+  right: 0;
+  top: 4rem;
+}
+.composition__photo--p3 {
+  left: 20%;
+  top: 14rem;
+}
+.composition__photo:hover {
+  outline: 1.5rem solid #55c57a;
+  transform: scale(1.05) translateY(-0.5rem);
+  box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+.composition:hover .composition__photo:not(:hover) {
+  transform: scale(0.95);
+}
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20vh;
+}
+
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/nat-4.jpg");
+  background-size: cover;
+  transform: skewY(-7deg);
+  margin-top: -10rem;
+}
+.section-features > * {
+  transform: skewY(7deg);
+}
+
+.section-tours {
+  background-color: #f7f7f7;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10rem;
+}
+
+.section-stories {
+  padding: 15rem 0;
+  position: relative;
+}
+
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+}
+
+.book {
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(../img/nat-10.jpg);
+  background-size: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  height: 50rem;
+}
+.book__form {
+  width: 50%;
+  padding: 6rem;
+}
+
+.header {
+  height: 95vh;
+  /*
+      linear-gradient: 线性渐变
+      to right bottom: 向右下角渐变
+      rgba: 最后一个数值是透明度
+   */
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  /* cover: 不论宽度如何改变,都会适应 */
+  background-size: cover;
+  /* 背景缩放时顶部不会被裁剪,而是下半部分被裁剪 */
+  background-position: top;
+  position: relative;
+  /*
+      剪辑图片的右下角
+      polygon: 四个参数对应顺时针的四角,参数指定该点相对于左上角的顶点的距离
+  */
+  /*clip-path: polygon(0 0,50% 15%,100% 200px,0 100%);*/
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+.header__logo-box {
+  /*子绝父相*/
+  position: absolute;
+  /*top: 40px;*/
+  top: 4rem;
+  /*left: 40px;*/
+  left: 4rem;
+}
+.header__logo {
+  /*会自动计算宽度*/
+  /*height: 35px;*/
+  height: 3.5rem;
+}
+.header__logo-box:hover .header__logo {
+  /*
+      要父元素的hover+子元素选择器才行
+      如果是子元素选择器:hover,则每次hover,子元素移开(动画),此时又失去hover,则会一直在原点频闪
+  */
+  animation: moveInRight 1s ease-out;
+}
+.header__text-box {
+  position: absolute;
+  /*移动父元素的50%*/
+  /*top: 50%;*/
+  top: 40%;
+  left: 50%;
+  /*移动自身的-50%,回到正中位置*/
+  /*这里的50%不是基于父元素,而是基于元素本身*/
+  transform: translate(-50%, -50%);
+  /*文本/行内块对齐*/
+  text-align: center;
+}
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+}
+.row:not(:last-child) {
+  margin-bottom: 8rem;
+}
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row [class^=col-] {
+  float: left;
+}
+.row [class^=col-]:not(:last-child) {
+  margin-right: 6rem;
+}
+.row .col-1-of-2 {
+  width: calc((100% - 6rem) / 2);
+}
+.row .col-1-of-3 {
+  width: calc((100% - 2 * 6rem) / 3);
+}
+.row .col-2-of-3 {
+  width: calc(2 * ((100% - 2 * 6rem) / 3) + 6rem);
+}
+.row .col-1-of-4 {
+  width: calc((100% - 3 * 6rem) / 4);
+}
+.row .col-2-of-4 {
+  width: calc(2 * ((100% - 3 * 6rem) / 4) + 6rem);
+}
+.row .col-3-of-4 {
+  width: calc(3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem);
+}
+
+/*# sourceMappingURL=style.css.map */

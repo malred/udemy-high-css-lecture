@@ -5,6 +5,7 @@
   /*可以通过分别设置两个伪类来实现点击前后的不同效果*/
   /*:link是链接伪类,此时尚未被点击*/
   /*:visited是已被点击的状态(已被访问的链接)(访问状态)*/
+  &, // 给button元素添加额外处理
   &:link,
   &:visited {
     /*转大写字母*/
@@ -23,10 +24,13 @@
     transition: all 0.2s;
     position: relative;
     font-size: $default-font-size;
+    // Change for the <button> element
+    border: none;
+    cursor: pointer;
   }
 
   /*hover y=3 active(点击) y=-1 则点击时实际是从3到1,实现了按钮按下的效果*/
-  &:hover {
+  &:hover{
     /*向上移动*/
     /*transform: translateY(-3px);*/
     transform: translateY(-0.3rem);
@@ -47,7 +51,10 @@
   }
 
   /*被激活(单击或触发事件)时*/
-  &:active {
+  &:active,
+  &:focus  {
+    // 聚焦<button>时去掉默认黑边框
+    outline: none;
     transform: translateY(-0.1rem);
     /*减少y轴的阴影面积,以及模糊度,给人一种向上按下的视觉效果*/
     //box-shadow: 0 5px 10px rgba($color-black, .2);

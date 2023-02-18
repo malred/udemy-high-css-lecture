@@ -39,10 +39,19 @@
   background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
 }
 .book {
-  background-image: url(../img/nat-10.jpg);
-  // 和cover效果一样
-  background-size: 100%;
+  // 105deg: 渐变的x轴角度
+  // 两个%的含义: 从0%的位置开始渐变,到50%的位置结束渐变
+  // 三个%的含义: 从0%的位置开始渐变,但是因为0%-50%的颜色一样,所以是白色,后面的%50没有渐变,使用末端的颜色
+  // 纯色渐变
+  background-image: linear-gradient(105deg, rgba($color-white, 0.9) 0%, rgba($color-white, 0.9) 50%, transparent 50%),
+    url(../img/nat-10.jpg);
+  // 和cover效果一样(如果是100%,当宽高超出,会平铺重复图片,cover不会)
+  background-size: cover;
   border-radius: $box-radius;
-  box-shadow: ;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.2);
   height: 50rem;
+  &__form {
+    width: 50%;
+    padding: 6rem;
+  }
 }

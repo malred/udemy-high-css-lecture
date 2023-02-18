@@ -1,0 +1,106 @@
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+    &__input {
+        font-size: 1.5rem;
+        // 自动继承字体家族
+        font-family: inherit;
+        // 继承
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: $box-radius;
+        background-color: rgba($color-white, 0.5);
+        border: none;
+        // 底部边框
+        border-bottom: 3px solid transparent;
+        width: 90%;
+        // 将label顶下去
+        display: block;
+        transition: all 0.3s;
+        // 仅chrome和safaki可用
+        // ::是伪元素,是真实存在的,:是伪类,不是元素
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+        // 当input框内容是无效的(比如邮箱格式不正确)
+        // 似乎只有chrome提供?
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+        // 当被聚焦时
+        &:focus {
+            // 去掉聚焦时浏览器默认出现的边框
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+            // 底部边框
+            border-bottom: 3px solid $color-primary;
+        }
+    }
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        // 和输入框的文字对齐
+        margin-left: 2rem;
+        margin-top: 0.7rem;
+        display: block;
+        transition: all 0.3s;
+    }
+    // 当显示placeholder时
+    // + 加号表示两个是邻接的兄弟(严格先后顺序), 兄弟选择器
+    // 如果是 ~ ,则只要是同一级下的就行,不要求必须是紧挨着的
+    &__input:placeholder-shown + &__label {
+        // 隐藏label
+        opacity: 0;
+        visibility: hidden;
+        // 让label在y轴-4的位置,当输入内容,回到0的位置,就有一个从上到下弹出的动画效果
+        transform: translateY(-4rem);
+    }
+    &__radio-group {
+        width: 49%;
+        display: inline-block;
+    }
+    // 隐藏掉input本来的radio 
+    &__radio-input {
+        display: none;
+    }
+    &__radio-label {
+        font-style: $default-font-size;
+        // 设置鼠标形状
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+    &__radio-button {
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: -0.4rem;
+        // 如果是其他类型,会被挤扁(inline),并且自己独占一行(block)
+        display: inline-block;
+        // 中心的小圆点
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            // 圆形边
+            border-radius: 50%;
+            // 居中
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+    }
+    // 当&__radio-input被选中checked时,其兄弟节点的&__radio-label的子节点-button的after伪元素
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1 ;
+    }
+}

@@ -9,6 +9,7 @@
 @import "base/utilities";
 // 组件样式
 @import "components/card";
+@import "components/form";
 @import "components/story";
 @import "components/button";
 @import "components/bg-video";
@@ -18,4 +19,5 @@
 @import "pages/home";
 // 布局样式
 @import "layout/header";
+@import "layout/footer";
 @import "layout/grid";
