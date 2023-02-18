@@ -1,0 +1,46 @@
+.card {
+    // 添加透视
+    perspective: 150rem;
+    // 适配火狐
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 50rem;
+    &__side {
+        // 绝对定位宽高塌陷
+        height: 50rem;
+        color: white;
+        font-size: 2rem;
+        transition: all 0.8s ease;
+        // 根据父元素来进行绝对定位,让front和back重合
+        position: absolute;
+        top: 0;
+        left: 0;
+        // 占满父元素的宽度
+        width: 100%;
+        // 背部可见性
+        // 如果没有这个,在旋转时是两个卡片会超模,交叉进行旋转
+        backface-visibility: hidden;
+        /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
+        box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+        &--front {
+            background-color: $color-white;
+        }
+        &--back {
+            // back的初始状态就是旋转了180
+            transform: rotateY(180deg);
+            &-1 {
+                // 渐变,左上到右下
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+            }
+        }
+    }
+    // 当hover时,&__side将改变样式
+    // hover后旋转
+    &:hover &__side--front {
+        transform: rotateY(180deg);
+    }
+    // front转过去,back转回来
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+}

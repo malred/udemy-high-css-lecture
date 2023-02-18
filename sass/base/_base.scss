@@ -1,0 +1,31 @@
+// 基本样式(如重置页面)
+// 下划线开头的sass文件不会被编译,但可以被引用
+
+/* basic reset */
+/*
+    重置样式是为了让样式在不同浏览器都保持一致
+    但是如今的浏览器兼容性越来越好,所以重置已经不是必须的了
+    添加after和before是因为只匹配*的话,after和before不会被覆盖到
+*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /*继承*/
+  box-sizing: inherit;
+}
+
+html {
+  /*设置根元素font-size*/
+  /*设置为10是因为方便换算 1rem=10px -> 16px=1.6rem*/
+  /*font-size: 10px;*/
+  /*写死为10px是不好的(比如用户修改浏览器默认字体大小?放大缩小),我们应该基于浏览器的默认font-size(16px)的百分比*/
+  /*0.625*16=10*/
+  /*老ie不兼容rem*/
+  font-size: 62.5%;
+  /*改变盒子模型,以便不再添加边框和填充到总宽度和总高度*/
+  box-sizing: border-box;
+}
+
+/* basic reset end */

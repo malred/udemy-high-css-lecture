@@ -1,0 +1,64 @@
+// 布局样式
+
+.header {
+  height: 95vh;
+  /*
+      linear-gradient: 线性渐变
+      to right bottom: 向右下角渐变
+      rgba: 最后一个数值是透明度
+   */
+  background-image: linear-gradient(
+                  to right bottom,
+                  rgba($color-primary-light, 0.8),
+                  rgba($color-primary-dark, 0.8)
+  ),
+  url("../img/hero.jpg");
+  /* cover: 不论宽度如何改变,都会适应 */
+  background-size: cover;
+  /* 背景缩放时顶部不会被裁剪,而是下半部分被裁剪 */
+  background-position: top;
+  position: relative;
+  /*
+      剪辑图片的右下角
+      polygon: 四个参数对应顺时针的四角,参数指定该点相对于左上角的顶点的距离
+  */
+  /*clip-path: polygon(0 0,50% 15%,100% 200px,0 100%);*/
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  &__logo-box {
+    /*子绝父相*/
+    position: absolute;
+    /*top: 40px;*/
+    top: 4rem;
+    /*left: 40px;*/
+    left: 4rem;
+  }
+
+  &__logo {
+    /*会自动计算宽度*/
+    /*height: 35px;*/
+    height: 3.5rem;
+  }
+
+  &__logo-box:hover .header__logo {
+    /*
+        要父元素的hover+子元素选择器才行
+        如果是子元素选择器:hover,则每次hover,子元素移开(动画),此时又失去hover,则会一直在原点频闪
+    */
+    animation: moveInRight 1s ease-out;
+  }
+
+  &__text-box {
+    position: absolute;
+    /*移动父元素的50%*/
+    /*top: 50%;*/
+    top: 40%;
+    left: 50%;
+    /*移动自身的-50%,回到正中位置*/
+    /*这里的50%不是基于父元素,而是基于元素本身*/
+    transform: translate(-50%, -50%);
+    /*文本/行内块对齐*/
+    text-align: center;
+  }
+}
+

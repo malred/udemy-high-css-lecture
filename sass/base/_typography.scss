@@ -1,0 +1,109 @@
+// 字体样式
+
+/*
+    字体相关的写在body,why
+    因为字体的属性通常是遗传/继承的,所以加在body来使之遗传,
+    比通用选择器里给每个元素(父子都有)添加来得高效
+*/
+body {
+  /*
+      sans-serif是无衬线字体
+      lato是谷歌的字体
+  */
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /*font-size: 16px;*/
+  font-size: $default-font-size;
+  /* 比预定义行高高1.7倍 */
+  line-height: 1.7;
+  color: $color-grey-dark;
+  /* 四边的留白 */
+  /*padding: 30px;*/
+  padding: 3rem;
+}
+
+.heading-primary {
+  color: $color-white;
+  /* 字母转大写 */
+  text-transform: uppercase;
+  /*
+      背部可见性
+      解决动画的震动(原理不明)
+  */
+  backface-visibility: hidden;
+  /*margin-bottom: 60px;*/
+  margin-bottom: 6rem;
+
+  &--main {
+    /*块元素会占一整行,可以把另一个span挤下去*/
+    display: block;
+    /*font-size: 60px;*/
+    font-size: 6rem;
+    font-weight: 400;
+    /*字间距*/
+    /*letter-spacing: 35px;*/
+    letter-spacing: 3.5rem;
+    /*指定要执行的动画的名称*/
+    animation-name: moveInLeft;
+    /*动画执行时间*/
+    animation-duration: 1s;
+    /**
+        动画计时函数
+        ease-in: 越来越快
+        ease-out(缓出): 越来越慢
+        ease-in-out/linear/step-start/step-end
+        支持自定义
+     */
+    animation-timing-function: ease-out;
+    /*动画重复次数*/
+    /*animation-iteration-count: 3;*/
+    /*动画延迟时间(会等待x秒再开始动画)*/
+    /*animation-delay: 3s; */
+  }
+
+  &--sub {
+    display: block;
+    /*font-size: 20px;*/
+    font-size: 2rem;
+    font-weight: 700;
+    /*letter-spacing: 17.4px;*/
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out;
+  }
+}
+// hover后倾斜
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  // 设置为行内(内联)块,则根据内容撑开宽高,可以把背景色限制在文字内容上
+  display: inline-block;
+  // 给h2标签设置渐变色
+  background-image: linear-gradient(to right, $color-primary, $color-primary-dark);
+  // 将背景精确剪裁到文字所在区域
+  -webkit-background-clip: text;
+  // 让文字透明才能看见背景
+  color: transparent;
+  // 字间距
+  letter-spacing: 0.2rem;
+  // 设置动画范围和时间
+  transition: all 0.2s;
+  &:hover {
+    // skew可以在x或y上旋转
+    // scale是缩放比例
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    // 设置阴影
+    text-shadow: 0.5rem 1rem 2rem rgba($color-black, 0.2);
+  }
+}
+.heading-teritiary {
+  font-size: $default-font-size;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.paragraph {
+  font-size: $default-font-size;
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}

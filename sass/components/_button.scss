@@ -1,0 +1,121 @@
+// 存放button相关样式
+
+// a标签模拟button
+.btn {
+  /*可以通过分别设置两个伪类来实现点击前后的不同效果*/
+  /*:link是链接伪类,此时尚未被点击*/
+  /*:visited是已被点击的状态(已被访问的链接)(访问状态)*/
+  &:link,
+  &:visited {
+    /*转大写字母*/
+    text-transform: uppercase;
+    /*取消a默认下划线*/
+    text-decoration: none;
+    /*padding可以撑开a元素*/
+    /*padding: 15px 40px;*/
+    padding: 1.5rem 4rem;
+    /*防止挡住其他元素,并且行内元素被视为文字,可以使用文字居中*/
+    display: inline-block;
+    /*border-radius: 100px;*/
+    border-radius: 10rem;
+    /*过渡属性动画,比帧动画简单*/
+    /*该属性作用于该选择器的所有属性*/
+    transition: all 0.2s;
+    position: relative;
+    font-size: $default-font-size;
+  }
+
+  /*hover y=3 active(点击) y=-1 则点击时实际是从3到1,实现了按钮按下的效果*/
+  &:hover {
+    /*向上移动*/
+    /*transform: translateY(-3px);*/
+    transform: translateY(-0.3rem);
+    /*阴影*/
+    /*参数1: x轴阴影位置; 参数2: y轴阴影位置; 参数3: 模糊度; 参数4: 颜色*/
+    /*y轴向下10px的阴影*/
+    /*box-shadow: 0 10px 20px rgba(0, 0, 0, .2);*/
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+    /*after被hover时触发*/
+    &::after {
+      /*scale就是简单地增大元素,磁力增大为原来的2倍*/
+      /*transform: scale(1.5);*/
+      /*scale可以设置不同方向的缩放倍数*/
+      transform: scaleX(1.4) scaleY(1.6);
+      /*透明度过渡到0*/
+      opacity: 0;
+    }
+  }
+
+  /*被激活(单击或触发事件)时*/
+  &:active {
+    transform: translateY(-0.1rem);
+    /*减少y轴的阴影面积,以及模糊度,给人一种向上按下的视觉效果*/
+    //box-shadow: 0 5px 10px rgba($color-black, .2);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+      /*给.btn-white的after添加背景颜色*/
+      background-color: $color-white;
+    }
+  }
+
+  /*基本被视为(此处为btn的)子元素*/
+  /*悬停到按钮外时,after会回到按钮后面*/
+  &::after {
+    /*可以是空,但必须设置,否则不会出现*/
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    /*border-radius: 100px;*/
+    border-radius: 10rem;
+    /*此处定位是基于.btn*/
+    /*子绝父相*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*藏在.btn下方*/
+    z-index: -1;
+    /*初始状态*/
+    transition: all 0.4s;
+  }
+
+  /*有(从底部)进入动画的按钮*/
+  &--animated {
+    /*动画,延迟0.75秒启动*/
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    /*动画填充模式,解决动画0%时opacity无效的问题*/
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid $color-primary;
+    padding: 3px;
+    transition: all 0.2s;
+  }
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    // 上移
+    transform: translateY(-2px);
+  }
+  // 按下
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    // 回到原位
+    transform: translateY(0px);
+  }
+}

@@ -1,0 +1,31 @@
+// 基本不复用
+// about的样式
+.section-about {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0;
+  // 向上移动20vh(因为上面的多边形的底边高度差是20vh
+  // 移上去比较好看(背景和多边形合在一起)
+  margin-top: -20vh;
+}
+// features的样式
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(to right bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)),
+    url("../img/nat-4.jpg");
+  background-size: cover;
+  // 请斜(看上去像平行四边形)
+  transform: skewY(-7deg);
+  // 上移
+  margin-top: -10rem;
+  // 选择所有子类
+  & > * {
+    // 让子类倾斜回来,此时只有父元素倾斜
+    transform: skewY(7deg);
+  }
+}
+// tours部分
+.section-tours {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0 50rem 0;
+  margin-top: -10rem;
+}

@@ -1,0 +1,60 @@
+// 存放动画
+
+/* 从左侧移动 */
+/* 为了浏览器优化,最好只对两个属性进行动画 */
+@keyframes moveInLeft {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的-100px*/
+    /*transform: translateX(-100px);*/
+    transform: translateX(-10rem);
+  }
+  80% {
+    /*执行到80%,此时到原元素位置的右侧20px*/
+    /*transform: translateX(10px);*/
+    transform: translateX(1rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}
+
+/* 从右侧移动 */
+@keyframes moveInRight {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的100px*/
+    /*transform: translateX(100px);*/
+    transform: translateX(10rem);
+  }
+  80% {
+    /*执行到80%,此时到原元素位置的左侧20px*/
+    /*transform: translateX(-10px);*/
+    transform: translateX(-1rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}
+
+/* 从底部移动 */
+@keyframes moveInBottom {
+  /*初始状态*/
+  0% {
+    opacity: 0;
+    /*初始位置是执行动画的元素的100px*/
+    /*transform: translateY(30px);*/
+    transform: translateY(3rem);
+  }
+  /*结束状态*/
+  100% {
+    /*最后回到元素的初始位置*/
+    transform: translate(0);
+  }
+}

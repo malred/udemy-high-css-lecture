@@ -1,0 +1,56 @@
+.row {
+  // 当宽度足够时才会显示定义的maxwidth长度
+  // 宽度不足时,只填充可用空间
+  max-width: $grid-width;  
+  // auto,会自动计算元素两边长度相同
+  margin: 0 auto;
+  // 选中除了last-child外所有元素
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+
+  // 清除浮动塌陷
+  @include clearfix;
+  // [class*="col-"] 所有包含col-的class
+  // [class$="col-"] 所有以col-结尾的class
+  // 所有class以col-开头的
+  [class^="col-"] { 
+    // 使用float进行排列
+    // float会有塌陷,要用clearfix解决
+    float: left;
+    // 最后一个child不需要
+    &:not(:last-child) {
+      // 加上间隔(排水沟)
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  // 分为2部分,占其中1部分
+  // 占一列的1/2
+  .col-1-of-2 {
+    // css原生的calc函数,进行计算
+    // 在css中使用sass变量 -> #{sass变量}
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+  }
+
+  .col-1-of-3 {
+    width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+  }
+
+  .col-2-of-3 {
+    // 2个1/3加上1个排水沟
+    width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+  }
+
+  .col-1-of-4 {
+    width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+  }
+
+  .col-2-of-4 {
+    width: calc(2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+  }
+
+  .col-3-of-4 {
+    width: calc(3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal});
+  }
+}
