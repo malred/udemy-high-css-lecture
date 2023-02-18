@@ -3,7 +3,7 @@
     font-size: 1.5rem;
     padding: 2.5rem;
     text-align: center;
-    border-radius: 3px;
+    border-radius:  $box-radius;
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
     // 让hover的改变更自然
     // 第一个参数是想要控制动画效果的属性

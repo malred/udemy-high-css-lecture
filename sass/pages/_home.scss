@@ -26,6 +26,23 @@
 // tours部分
 .section-tours {
   background-color: $color-grey-light-1;
-  padding: 25rem 0 50rem 0;
+  padding: 25rem 0 15rem 0;
   margin-top: -10rem;
+}
+.section-stories {
+  // background-color: $color-grey-light-1;
+  padding: 15rem 0;
+  position: relative;
+}
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+}
+.book {
+  background-image: url(../img/nat-10.jpg);
+  // 和cover效果一样
+  background-size: 100%;
+  border-radius: $box-radius;
+  box-shadow: ;
+  height: 50rem;
 }

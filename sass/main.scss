@@ -8,10 +8,12 @@
 @import "base/typography";
 @import "base/utilities";
 // 组件样式
-@import "components/button";
 @import "components/card";
-@import "components/composition";
+@import "components/story";
+@import "components/button";
+@import "components/bg-video";
 @import "components/feature-box";
+@import "components/composition";
 // 页面样式
 @import "pages/home";
 // 布局样式

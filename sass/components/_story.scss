@@ -1,0 +1,72 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+    background-color: rgba($color-white, 0.6 );
+    border-radius:  $box-radius;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    // 倾斜,变成平行四边形
+    transform: skewX(-12deg);
+    // & > * {
+    //     transform: skewX(12deg);
+    // }
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        // 定义多边形(polygon),定义圆形(circle)
+        // 非矩形的形状，相邻的内联内容应围绕该形状进行包装
+        // 参数1: 半径,
+        // 兼容safari
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+        // 剪裁为圆圈
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+        // 左移(不要乱用padding或margin!)
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+    }
+    &__img {
+        // 图片需要宽高来约束
+        // width: 100%;
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden;
+        transition: all 0.5s;
+    }
+    &:hover &__img {
+        // hover时图片缩小
+        transform: translateX(-4rem) scale(1);
+        // 图片 变暗 变模糊
+        // blur变模糊
+        // brightness>100% 变亮, <100% 变暗
+        filter: blur(3px) brightness(90%);
+    }
+    &__text {
+        transform: skewX(12deg);
+    }
+    &__caption {
+        // 居中
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        // 透明
+        opacity: 0;
+        // 动画执行效果
+        transition: all 0.5s;
+        backface-visibility: hidden;
+    }
+    &:hover &__caption {
+        opacity: 1;
+        // 移动
+        transform: translate(-50%, -50%);
+    }
+}

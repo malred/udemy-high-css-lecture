@@ -63,6 +63,15 @@
       background-color: $color-white;
     }
   }
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &::after {
+      /*给.btn-white的after添加背景颜色*/
+      background-color: $color-white;
+    }
+  }
 
   /*基本被视为(此处为btn的)子元素*/
   /*悬停到按钮外时,after会回到按钮后面*/

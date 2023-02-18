@@ -1,14 +1,14 @@
 .card {
+    // FUNCTIONALITY
     // 添加透视
     perspective: 150rem;
     // 适配火狐
     -moz-perspective: 150rem;
     position: relative;
-    height: 50rem;
+    height: 52rem;
     &__side {
         // 绝对定位宽高塌陷
-        height: 50rem;
-        color: white;
+        height: 52rem;
         font-size: 2rem;
         transition: all 0.8s ease;
         // 根据父元素来进行绝对定位,让front和back重合
@@ -17,11 +17,16 @@
         left: 0;
         // 占满父元素的宽度
         width: 100%;
+        // 图片填充父元素,然后border-radius被图片盖住
+        // 这里将图片超出部分隐层,就能看到border-radius的效果
+        overflow: hidden;
         // 背部可见性
         // 如果没有这个,在旋转时是两个卡片会超模,交叉进行旋转
+        // 当旋转完毕,背部才出现
         backface-visibility: hidden;
         /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
         box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+        border-radius: 0.8rem;
         &--front {
             background-color: $color-white;
         }
@@ -32,15 +37,133 @@
                 // 渐变,左上到右下
                 background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
             }
+            &-2 {
+                // 渐变,左上到右下
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+            }
+            &-3 {
+                // 渐变,左上到右下
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+            }
         }
     }
     // 当hover时,&__side将改变样式
     // hover后旋转
     &:hover &__side--front {
-        transform: rotateY(180deg);
+        transform: rotateY(-180deg);
     }
     // front转过去,back转回来
     &:hover &__side--back {
         transform: rotateY(0);
+    }
+    // FRONT SIDE STYLING
+    &__picture {
+        background-size: cover;
+        height: 23rem;
+        // 在safari/firefox/chrome上才有效
+        // 背景混合模式
+        background-blend-mode: screen;
+        // 适配不同浏览器
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        // 使用clip时,overflow会失效
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        &--1 {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark),
+                url(../img/nat-5.jpg);
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark),
+                url(../img/nat-6.jpg);
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark),
+                url(../img/nat-7.jpg);
+        }
+    }
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: right;
+        color: $color-white;
+        // 浮于图片上方
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+    }
+    &__heading-span {
+        padding: 1rem 1.5rem;
+        // 当元素跨多行、多列或多页时，元素的片段应如何呈现
+        // 这里的文字分成了两行,则将第一行的padding复制到第二行,实现对齐
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        &--1 {
+            background-image: linear-gradient(
+                to right bottom,
+                rgba($color-secondary-light, 0.85),
+                rgba($color-secondary-dark, 0.85)
+            );
+        }
+        &--2 {
+            background-image: linear-gradient(
+                to right bottom,
+                rgba($color-primary-light, 0.85),
+                rgba($color-primary-dark, 0.85)
+            );
+        }
+        &--3 {
+            background-image: linear-gradient(
+                to right bottom,
+                rgba($color-tertiary-light, 0.85),
+                rgba($color-tertiary-dark, 0.85)
+            );
+        }
+    }
+    &__details {
+        padding: 3rem;
+        ul {
+            list-style: none;
+            width: 80%;
+            // 居中
+            margin: 0 auto;
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+            }
+        }
+    }
+    // FRONT SIDE STYLING
+    &__cta {
+        position: absolute;
+        /* 应该封装为mixin */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* 应该封装为mixin */
+        // 按钮放不下(字分成了两行),所有设置宽度90%父元素
+        width: 90%;
+        // 按钮居中
+        text-align: center;
+    }
+    &__price-box {
+        text-align: center;
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+    &__price-only {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+    &__price-value {
+        font-size: 6rem;
+        // 大而细的字比大而粗的好看
+        font-weight: 100;
     }
 }

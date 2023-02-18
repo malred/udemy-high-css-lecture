@@ -23,6 +23,7 @@
       polygon: 四个参数对应顺时针的四角,参数指定该点相对于左上角的顶点的距离
   */
   /*clip-path: polygon(0 0,50% 15%,100% 200px,0 100%);*/
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 
   &__logo-box {
