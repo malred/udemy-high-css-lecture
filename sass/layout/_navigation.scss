@@ -1,0 +1,153 @@
+.navigation {
+    // label的样式
+    &__button {
+        background-color: $color-white;
+        height: 7rem;
+        width: 7rem;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        // 圆形
+        border-radius: 50%;
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+        // span水平居中
+        text-align: center;
+        cursor: pointer;
+    }
+    // 放在按钮下面,hover时放大占据屏幕,实现动效
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        // 滚动页面时,不会改变位置
+        // 允许指定其位置
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        // 径向渐变(从中心向四周渐变)
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+        // 放大
+        // transform: scale(80);
+        transition: transform 0.8s;
+        transition: all 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    // 点击后打开的nav界面样式
+    &__nav {
+        height: 100vh;
+        // 固定位置
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+        // 透明
+        opacity: 0;
+        // 只有透明不行,元素还在,所以要宽度为0
+        width: 0;
+        // cubic-bezier三次贝塞尔函数
+        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    &__list {
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+        list-style: none;
+        // 有序号的情况下,我更喜欢左对齐
+        text-align: left;
+    }
+    &__item {
+        margin: 1rem;
+    }
+    &__link {
+        &:link,
+        &:visited {
+            // 内联块可以transform
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            color: $color-white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            // 纯色渐变
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            // 放大时,会出现红色往右移动的错觉
+            background-size: 220%;
+            transition: all 0.4s;
+            span {
+                margin-right: 1.2rem;
+                display: inline-block;
+            }
+        }
+        &:hover,
+        &:active {
+            // 背景定位会100%的位置
+            background-position: 100%;
+            color: $color-primary;
+            // 向右移动一点
+            transform: translateX(1rem);
+        }
+    }
+    &__checkbox {
+        // 隐藏复选框
+        display: none;
+    }
+    // FUNCTIONALITY
+    // 点击按钮(checkbox),放大背景
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+    &__checkbox:checked ~ &__nav {
+        opacity: 1;
+        width: 100%;
+    }
+    // ICON
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem;
+        &,
+        &::after,
+        &::before {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        &::after,
+        &::before {
+            content: "";
+            // 定位两个伪元素
+            position: absolute;
+            left: 0;
+        }
+        &::after {
+            // 旋转的中心点(绕哪一点旋转)
+            // transform-origin: left;
+            top: 0.8rem;
+        }
+        &::before {
+            top: -0.8rem;
+        }
+    }
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+    &__checkbox:checked + &__button &__icon {
+        // 变为不可见
+        background-color: transparent;
+    }
+    &__checkbox:checked + &__button &__icon::before {
+        top:0;
+        transform: rotate(135deg);
+    }
+    &__checkbox:checked + &__button &__icon::after {
+        top:0;
+        transform: rotate(-135deg);
+    }
+}

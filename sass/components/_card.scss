@@ -141,11 +141,7 @@
     }
     // FRONT SIDE STYLING
     &__cta {
-        position: absolute;
-        /* 应该封装为mixin */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include absCenter;
         /* 应该封装为mixin */
         // 按钮放不下(字分成了两行),所有设置宽度90%父元素
         width: 90%;
