@@ -13,3 +13,47 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+// 响应式: 媒体查询
+/*
+  0-600px: Phone
+  600-900px: tablet portrait
+  900-1200px: tablet landscape  
+  1200-1800px: is where our normal styles apply <- 桌面优先
+  1800px↑: big desktop 
+*/
+@mixin respond-phone {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+/*
+  通过变量控制使用哪个尺寸的媒体查询
+  $breakpoint:  
+  - phone 
+  - tab-port
+  - tab-land
+  - big-desktop
+*/
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-port {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-land {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  }
+  @if $breakpoint == big-desktop {
+    // 这里是min-width
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+}

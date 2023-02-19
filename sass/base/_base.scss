@@ -26,6 +26,26 @@ html {
   font-size: 62.5%;
   /*改变盒子模型,以便不再添加边框和填充到总宽度和总高度*/
   box-sizing: border-box;
+  // mixin{ content }
+  // @include respond-phone {
+  //   // 解析为@content
+  //   font-size: 50%;
+  // }
+  @include respond(phone) {
+    font-size: 50%;
+  }
+  @include respond(tab-port) {
+    font-size: 60%;
+  }
+  @include respond(tab-land) {
+    font-size: 70%;
+  }
+  @include respond(big-desktop) {
+    font-size: 80%;
+  }
 }
-
+// body {
+//   /*改变盒子模型,以便不再添加边框和填充到总宽度和总高度*/
+//   box-sizing: border-box;
+// }
 /* basic reset end */

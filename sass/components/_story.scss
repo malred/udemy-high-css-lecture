@@ -2,13 +2,17 @@
     width: 75%;
     margin: 0 auto;
     box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
-    background-color: rgba($color-white, 0.6 );
-    border-radius:  $box-radius;
+    background-color: rgba($color-white, 0.6);
+    border-radius: $box-radius;
     padding: 6rem;
     padding-left: 9rem;
     font-size: $default-font-size;
     // 倾斜,变成平行四边形
     transform: skewX(-12deg);
+    // scss编译后 -> @media(){ .story{ xxx } }
+    // @media (max-width: 600px) {
+    //     width: 50%;
+    // }
     // & > * {
     //     transform: skewX(12deg);
     // }
