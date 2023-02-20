@@ -18,6 +18,9 @@
         // 将label顶下去
         display: block;
         transition: all 0.3s;
+        @include respond(tab-port) {
+            width: 100%; 
+        }
         // 仅chrome和safaki可用
         // ::是伪元素,是真实存在的,:是伪类,不是元素
         &::-webkit-input-placeholder {
@@ -59,8 +62,12 @@
     &__radio-group {
         width: 49%;
         display: inline-block;
+        @include respond(tab-port) {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
     }
-    // 隐藏掉input本来的radio 
+    // 隐藏掉input本来的radio
     &__radio-input {
         display: none;
     }
@@ -98,6 +105,6 @@
     }
     // 当&__radio-input被选中checked时,其兄弟节点的&__radio-label的子节点-button的after伪元素
     &__radio-input:checked ~ &__radio-label &__radio-button::after {
-        opacity: 1 ;
+        opacity: 1;
     }
 }

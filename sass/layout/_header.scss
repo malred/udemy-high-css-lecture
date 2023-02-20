@@ -7,12 +7,8 @@
       to right bottom: 向右下角渐变
       rgba: 最后一个数值是透明度
    */
-  background-image: linear-gradient(
-                  to right bottom,
-                  rgba($color-primary-light, 0.8),
-                  rgba($color-primary-dark, 0.8)
-  ),
-  url("../img/hero.jpg");
+  background-image: linear-gradient(to right bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)),
+    url("../img/hero.jpg");
   /* cover: 不论宽度如何改变,都会适应 */
   background-size: cover;
   /* 背景缩放时顶部不会被裁剪,而是下半部分被裁剪 */
@@ -25,7 +21,11 @@
   /*clip-path: polygon(0 0,50% 15%,100% 200px,0 100%);*/
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-
+  // 小屏幕上看,clip-path切得太斜了
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
+  }
   &__logo-box {
     /*子绝父相*/
     position: absolute;
@@ -62,4 +62,3 @@
     text-align: center;
   }
 }
-

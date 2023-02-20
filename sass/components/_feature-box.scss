@@ -3,11 +3,14 @@
     font-size: 1.5rem;
     padding: 2.5rem;
     text-align: center;
-    border-radius:  $box-radius;
+    border-radius: $box-radius;
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
     // 让hover的改变更自然
     // 第一个参数是想要控制动画效果的属性
     transition: transform 0.3s;
+    @include respond(tab-port) {
+        padding: 2rem;
+    }
     &__icon {
         font-size: 6rem;
         margin-bottom: 0.5rem;
@@ -20,8 +23,11 @@
         -webkit-background-clip: text;
         color: transparent; // 字体透明
         /* 应该提取function或mixin end */
+        @include respond(tab-port) {
+            margin-bottom: 0;
+        }
     }
     &:hover {
         transform: translateY(-1.5rem);
-    } 
+    }
 }

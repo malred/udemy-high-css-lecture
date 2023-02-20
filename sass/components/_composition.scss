@@ -3,23 +3,46 @@
     &__photo {
         width: 55%;
         box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
-        border-radius:  $box-radius;
+        border-radius: $box-radius;
         position: absolute;
         z-index: 10;
         transition: all 0.2s;
         // 轮廓偏移,即外边框离元素有一定距离
         outline-offset: 2rem;
+        // 小屏幕的图片变成横向并排
+        @include respond(tab-port) {
+            float: left;
+            // 摆脱绝对定位
+            position: relative;
+            width: 33.33333333%;
+            box-shadow: 0 1.5rem 3rem rgba($color-black, 0.2);
+        }
         &--p1 {
             left: 0;
             top: 1rem;
+            @include respond(tab-port) {
+                top: 0;
+                transform: scale(1.2);
+            }
         }
         &--p2 {
             right: 0;
             top: 4rem;
+            @include respond(tab-port) {
+                top: -1rem;
+                // 放大,看着不单调
+                transform: scale(1.3);
+                z-index: 100;
+            }
         }
         &--p3 {
             left: 20%;
             top: 14rem;
+            @include respond(tab-port) {
+                top: 1rem;
+                left: 0;
+                transform: scale(1.1);
+            }
         }
         &:hover {
             // 轮廓,外圈边框

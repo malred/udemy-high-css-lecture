@@ -28,12 +28,19 @@
         transform: translate(-50%, -50%) scale(0.25);
         // .2s是延迟
         transition: all 0.4s 0.2s;
+        @include respond(phone) {
+            width: 95%;
+        }
     }
     &__left {
         width: 33.333333%;
         // float: left;
         // 父元素需要设置为display: table
         display: table-cell;
+        @include respond(tab-port) {
+            width: 0;
+            display: none;
+        }
     }
     &__right {
         width: 66.666667%;
@@ -42,6 +49,14 @@
         // 垂直居中对齐
         vertical-align: middle;
         padding: 3rem 5rem;
+        @include respond(tab-port) {
+            width: 100%;
+            padding: 2rem 4rem;
+        }
+        @include respond(phone) {
+            width: 100%;
+            padding: 1rem 3rem;
+        }
     }
     &__img {
         display: block;
@@ -66,6 +81,16 @@
         -ms-hyphens: auto;
         -webkit-hyphens: auto;
         hyphens: auto;
+        @include respond(phone) {
+            font-size: 1rem;
+            // 文字创建为两列
+            -moz-column-count: 1;
+            column-count: 1;
+            // 列和列的间隔(默认1em)
+            // 1em=14px(因为这里指定font-size为14px)
+            -moz-column-gap: 2.5rem;
+            column-gap: 2.5rem;
+        }
     }
     // target就是a标签跳转的目标元素
     // localhost:xx/#popup

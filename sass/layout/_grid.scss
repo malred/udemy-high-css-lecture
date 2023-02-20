@@ -1,20 +1,29 @@
 .row {
   // 当宽度足够时才会显示定义的maxwidth长度
   // 宽度不足时,只填充可用空间
-  max-width: $grid-width;  
+  max-width: $grid-width;
   // auto,会自动计算元素两边长度相同
   margin: 0 auto;
   // 选中除了last-child外所有元素
   &:not(:last-child) {
     margin-bottom: $gutter-vertical;
+    @include respond(tab-port) {
+      // 小屏缩小底部margin
+      margin-bottom: $gutter-vertical-small;
+    }
   }
-
+  // 小屏幕,元素width变小
+  // max-width->当宽度够就占据该值,不够就填满,显然,小屏幕会被填满,不好看
+  @include respond(tab-port) {
+    max-width: 50rem;
+    padding: 0 3rem;
+  }
   // 清除浮动塌陷
   @include clearfix;
   // [class*="col-"] 所有包含col-的class
   // [class$="col-"] 所有以col-结尾的class
   // 所有class以col-开头的
-  [class^="col-"] { 
+  [class^="col-"] {
     // 使用float进行排列
     // float会有塌陷,要用clearfix解决
     float: left;
@@ -22,6 +31,14 @@
     &:not(:last-child) {
       // 加上间隔(排水沟)
       margin-right: $gutter-horizontal;
+      @include respond(tab-port) {
+        // 小屏不需要列间距,一列一行
+        margin-right: 0;
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+    @include respond(tab-port) {
+      width: 100% !important;
     }
   }
 

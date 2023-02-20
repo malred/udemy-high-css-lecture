@@ -19,7 +19,7 @@ body {
   color: $color-grey-dark;
   /* 四边的留白 */
   /*padding: 30px;*/
-  padding: 3rem;
+  // padding: 3rem;
 }
 
 .heading-primary {
@@ -59,8 +59,13 @@ body {
     /*animation-iteration-count: 3;*/
     /*动画延迟时间(会等待x秒再开始动画)*/
     /*animation-delay: 3s; */
+    // 小屏字间距和字体大小变小
+    @include respond(phone) {
+      letter-spacing: 1rem;
+      font-size: 5rem;
+    }
   }
-
+  // 次级标题
   &--sub {
     display: block;
     /*font-size: 20px;*/
@@ -69,6 +74,9 @@ body {
     /*letter-spacing: 17.4px;*/
     letter-spacing: 1.75rem;
     animation: moveInRight 1s ease-out;
+    @include respond(phone) {
+      letter-spacing: 0.5rem;
+    }
   }
 }
 // hover后倾斜
@@ -88,6 +96,12 @@ body {
   letter-spacing: 0.2rem;
   // 设置动画范围和时间
   transition: all 0.2s;
+  @include respond(tab-port) {
+    font-size: 3rem;
+  }
+  @include respond(phone) {
+    font-size: 2.5rem;
+  }
   &:hover {
     // skew可以在x或y上旋转
     // scale是缩放比例
