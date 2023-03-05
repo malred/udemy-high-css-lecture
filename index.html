@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--google字体,数字表示粗细-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900">
-    <link rel="stylesheet" href="css/icon-font.css">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/icon-font.css"> -->
+    <link rel="stylesheet" href="css/style.min.css">
     <!--网站标题栏的小图标-->
     <link rel="shortcut icon" type="image/png" href="img/favicon.png">
     <title>Natours | Exciting tours for adventurous people</title>
@@ -103,9 +103,26 @@
                 </div>
                 <div class="col-1-of-2">
                     <div class="composition">
-                        <img src="img/nat-1-large.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
-                        <img src="img/nat-2-large.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
-                        <img src="img/nat-3-large.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
+                        <!-- 这里的vm是先调整屏幕到指定大小(900,600),然后看图片的宽度,除以大小(171/900, 171/600)得出 -->
+                        <!-- 最后的300px是默认值 -->
+                        <img srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+                            sizes="(max-width: 56.25em) 20vw,(max-width: 37.5em) 30vw,300px" alt="Photo 1"
+                            class="composition__photo composition__photo--p1" src="img/nat-1-large.jpg">
+                        <img srcset="img/nat-2.jpg 300w, img/nat-2-large.jpg 1000w"
+                            sizes="(max-width: 56.25em) 20vw,(max-width: 37.5em) 30vw,300px" alt="Photo 2"
+                            class="composition__photo composition__photo--p2" src="img/nat-2-large.jpg">
+                        <img srcset="img/nat-3.jpg 300w, img/nat-3-large.jpg 1000w"
+                            sizes="(max-width: 56.25em) 20vw,(max-width: 37.5em) 30vw,300px" alt="Photo 3"
+                            class="composition__photo composition__photo--p3" src="img/nat-3-large.jpg">
+                        <!-- src属性是防止浏览器无法使用srcset和sizes属性时 图片为空白 -->
+                        <!--
+                            <img src="img/nat-1-large.jpg" alt="Photo 1"
+                                class="composition__photo composition__photo--p1">
+                            <img src="img/nat-2-large.jpg" alt="Photo 2"
+                                class="composition__photo composition__photo--p2">
+                            <img src="img/nat-3-large.jpg" alt="Photo 3"
+                                class="composition__photo composition__photo--p3">
+                        -->
                     </div>
                 </div>
             </div>
@@ -164,7 +181,7 @@
             </div>
         </section>
         <!-- tours -->
-        <section class="section-tours" id="section-tours"> 
+        <section class="section-tours" id="section-tours">
             <div class="u-center-text u-margin-bottom-big">
                 <h2 class="heading-secondary">
                     Most popular tours
@@ -392,7 +409,18 @@
     <!-- BEM(规范)体系中,每个元素都有class -->
     <footer class="footer">
         <div class="footer__logo-box">
-            <img src="img/logo-green-2x.png" alt="Full logo" class="footer__logo">
+            <picture class="footer__logo">
+                <!-- media里写媒体查询 -->
+                <!-- 图片路径后面跟的是密度描述符(1x 2x) -->
+                <source srcset="img/logo-green-small-1x.png 1x,img/logo-green-small-2x.png 2x"
+                    media="(max-width: 37.5rem)">
+                <!-- 大于37.5rem用下面这个图片 -->
+                <img srcset="img/logo-green-1x.png 1x,img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo"
+                    src="img/logo-green-2x.png">
+            </picture>
+            <!-- <img src="img/logo-green-2x.png" alt="Full logo" class="footer__logo"> -->
+            <!-- 浏览器自动选择最优的图片(我的电脑是低分辨率,显示的是1x那张) -->
+            <!-- <img srcset="img/logo-green-1x.png 1x,img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo"> -->
         </div>
         <div class="row">
             <div class="col-1-of-2">

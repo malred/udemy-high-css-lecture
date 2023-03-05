@@ -28,16 +28,25 @@
     &__shape {
         width: 15rem;
         height: 15rem;
+        overflow: hidden;
         float: left;
+        border-radius: 50%;
         // 定义多边形(polygon),定义圆形(circle)
         // 非矩形的形状，相邻的内联内容应围绕该形状进行包装
         // 参数1: 半径,
-        // 兼容safari
-        -webkit-shape-outside: circle(50% at 50% 50%);
-        shape-outside: circle(50% at 50% 50%);
+        // -webkit- 兼容
+        // -webkit-shape-outside: circle(50% at 50% 50%);
+        // shape-outside: circle(50% at 50% 50%);
         // 剪裁为圆圈
-        -webkit-clip-path: circle(50% at 50% 50%);
-        clip-path: circle(50% at 50% 50%);
+        // -webkit-clip-path: circle(50% at 50% 50%);
+        // clip-path: circle(50% at 50% 50%);
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);
+            border-radius: none;
+        }
         // 左移(不要乱用padding或margin!)
         transform: translateX(-3rem) skewX(12deg);
         position: relative;

@@ -23,6 +23,7 @@
         // 背部可见性
         // 如果没有这个,在旋转时是两个卡片会超模,交叉进行旋转
         // 当旋转完毕,背部才出现
+        -webkit-backface-visibility: hidden; // 兼容
         backface-visibility: hidden;
         /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
         box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);

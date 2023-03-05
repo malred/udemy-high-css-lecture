@@ -5,13 +5,20 @@
     top: 0;
     left: 0;
     // 暗色背景
-    background-color: rgba($color-black, 0.8);
+    // background-color: rgba($color-black, 0.8);
     z-index: 9999;
     // 隐藏元素
     // 使用display: none;则动画会失效!!!
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
+    // 如果当前浏览器支持supports()里的属性,就使用括号里的属性
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        // 模糊背景
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, 0.3);
+    }
     &__content {
         width: 75%;
         box-shadow: 0 2rem 4rem rgba($color-black, 0.2);

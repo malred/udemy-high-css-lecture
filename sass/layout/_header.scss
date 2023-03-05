@@ -1,14 +1,14 @@
 // 布局样式
 
 .header {
-  height: 95vh;
+  height: 85vh;
   /*
       linear-gradient: 线性渐变
       to right bottom: 向右下角渐变
       rgba: 最后一个数值是透明度
    */
   background-image: linear-gradient(to right bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)),
-    url("../img/hero.jpg");
+    url("../img/hero-small.jpg");
   /* cover: 不论宽度如何改变,都会适应 */
   background-size: cover;
   /* 背景缩放时顶部不会被裁剪,而是下半部分被裁剪 */
@@ -19,8 +19,34 @@
       polygon: 四个参数对应顺时针的四角,参数指定该点相对于左上角的顶点的距离
   */
   /*clip-path: polygon(0 0,50% 15%,100% 200px,0 100%);*/
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  // -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  // clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    height: 95vh;
+  }
+  // 苹果视网膜屏幕的分辨率(高)
+  // 并且是600px以上的屏幕宽度(再低也没必要显示这么清晰)
+  // 逗号 可以看作是 或 运算
+  // @media (min-resolution: 192dpi) and (min-width: 600px), (min-width: 2000px) { ÷16转em
+  @media (min-resolution: 192dpi) and (min-width: 37.5em),
+    // 兼容不支持min-resolution的浏览器,
+    // 表示 2x (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+    (min-width: 125em) {
+    // 高分辨率用hero.jpg,低分辨率用-small
+    background-image: linear-gradient(to right bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)),
+      url("../img/hero.jpg");
+  }
+  // @media (min-width: 2000px) {
+  //   // 高分辨率用hero.jpg,低分辨率用-small
+  //   background-image: linear-gradient(
+  //       to right bottom,
+  //       rgba($color-primary-light, 0.8),
+  //       rgba($color-primary-dark, 0.8)
+  //     ),
+  //     url("../img/hero.jpg");
+  // }
   // 小屏幕上看,clip-path切得太斜了
   @include respond(phone) {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
